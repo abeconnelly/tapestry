@@ -168,10 +168,13 @@ PATH=/usr/local/bin:/usr/bin:/bin
 
 To enable large uploads with warehouse storage:
 
-    sudo apt-get install runit fuse-utils
-    sudo mkdir -p /etc/service/whmount/log/main
-    sudo usermod -a -G fuse www-data
-    Set up supervised whmount service:
+```bash
+sudo apt-get install runit fuse-utils
+sudo mkdir -p /etc/service/whmount/log/main
+sudo usermod -a -G fuse www-data
+```
+
+Set up supervised whmount service:
 
 ```bash
 sudo tee /etc/service/whmount/run <<EOF >/dev/null
@@ -192,11 +195,11 @@ EOF
 sudo chmod +x /etc/service/whmount/log/run
 ```
 
-    Make sure config/config.yml matches your Apache and filesystem mount points:
+Make sure config/config.yml matches your Apache and filesystem mount points:
 
 ```
-  warehouse_web_root: "/warehouse" # Apache alias pointing to whmount target
-  warehouse_fs_root: "/warehouse" # whmount target
+warehouse_web_root: "/warehouse" # Apache alias pointing to whmount target
+warehouse_fs_root: "/warehouse" # whmount target
 ```
 
 Updating
