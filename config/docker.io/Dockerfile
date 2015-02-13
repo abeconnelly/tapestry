@@ -74,5 +74,5 @@ RUN service mysql start && \
 
 
 
-COPY ./passenger.conf /etc/apaache2/mods-available/passenger.conf
+COPY ./passenger.conf /etc/apache2/mods-available/passenger.conf
 COPY ./secret_token.rb /var/www/tapestry/config/initializers/secret_token.rb
