@@ -46,9 +46,13 @@ common:
   get_2013_secret: 'your_get_2013_secret'
   get_2013_app_identifier: 'your_get_2013_app_identifier'
 
-  get_evidence_base_url: 'http://evidence.personalgenomes.org'
-  get_evidence_api_key: 'your-get-evidence-api-key'
-  get_evidence_api_secret: 'your-get-evidence-api-secret'
+  # get_evidence_base_url: 'http://evidence.personalgenomes.org'
+  # get_evidence_api_key: 'your-get-evidence-api-key'
+  # get_evidence_api_secret: 'your-get-evidence-api-secret'
+
+  get_evidence_base_url: 'http://localhost:8080'
+  get_evidence_api_key: '12345'
+  get_evidence_api_secret: '12345'
 
   enable_self_service_withdrawal: true
 

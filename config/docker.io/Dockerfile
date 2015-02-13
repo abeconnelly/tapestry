@@ -31,20 +31,29 @@ RUN sudo --login bash --login -c " rvm use ree && ruby -v && \
     su --login tapestry bash --login -c " cd /var/www && git clone https://github.com/abeconnelly/tapestry " && \
     sudo --login bash --login -c " rvm use ree && ruby -v && chmod go-w,-t . && \
       cd /var/www/tapestry && bundle install && \
-      gem install mysql -v 2.9.1 " && \
-    su --login tapestry bash --login -c " cd /var/www/tapestry && git submodule init && git submodule update && \
-      rvm use ree && \
-      bundle install --deployment "
+      gem install mysql -v 2.9.1 "
+#    su --login tapestry bash --login -c " cd /var/www/tapestry && git submodule init && git submodule update && \
+#      rvm use ree && \
+#      bundle install --deployment "
 
 COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
 
+# These config files need to happen before the 'bundle install' ?
+#
 COPY ./config.yml /var/www/tapestry/config/config.yml
 COPY ./development.rb /var/www/tapestry/config/environments/development.rb
 #  cp /var/www/tapestry/config/environments/development.rb.example /var/www/tapestry/config/environments/development.rb && \
 #  cp /var/www/tapestry/config/config.defaults.yml /var/www/tapestry/config/config.yml && \
 
+COPY ./secret_token.rb /var/www/tapestry/config/initializers/secret_token.rb
+
 RUN p=`jq -r .database_password /root/private/secret` && \
   sed "s/password: .*/password: $p/g" /var/www/tapestry/config/database.yml.example > /var/www/tapestry/config/database.yml
+
+
+RUN su --login tapestry bash --login -c " cd /var/www/tapestry && git submodule init && git submodule update && \
+      rvm use ree && \
+      bundle install --deployment "
 
 # NOTE: I've gotten errors of the form:
 #  # service mysql start
@@ -75,4 +84,3 @@ RUN service mysql start && \
 
 
 COPY ./passenger.conf /etc/apache2/mods-available/passenger.conf
-COPY ./secret_token.rb /var/www/tapestry/config/initializers/secret_token.rb
