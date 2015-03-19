@@ -55,6 +55,13 @@ RUN su --login tapestry bash --login -c " cd /var/www/tapestry && git submodule 
       rvm use ree && \
       bundle install --deployment "
 
+# rails has issues:
+# as root, the following works for me?
+# export RAILS_ENV=production
+# cd /var/www/my.pgp-hms.org/current
+# rvm use ree
+# bundle exec rails console
+
 # NOTE: I've gotten errors of the form:
 #  # service mysql start
 #  /usr/sbin/mysqld: error while loading shared libraries: libaio.so.1: cannot open shared object file: Permission denied
